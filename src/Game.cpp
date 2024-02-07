@@ -16,23 +16,32 @@ void Game::Initialize(){
         std::cerr << "SDL_Init Error: " << SDL_GetError() << std::endl;
         return;
     }
+    SDL_DisplayMode displayMode;
+    SDL_GetCurrentDisplayMode(0, &displayMode);
+    windowWidth = 800; // displayMode.w;
+    windowHeight = 600; // displayMode.h;
     window = SDL_CreateWindow(
         NULL, 
         SDL_WINDOWPOS_CENTERED, 
         SDL_WINDOWPOS_CENTERED, 
-        800, 
-        600, 
+        windowWidth, 
+        windowHeight, 
         SDL_WINDOW_BORDERLESS);
     
     if(!window){
         std::cerr << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
         return;
     }
-    renderer = SDL_CreateRenderer(window, -1, 0);
+    renderer = SDL_CreateRenderer(
+        window, 
+        -1, 
+        SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
+    );
     if(!renderer){
         std::cerr << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
         return;
     }
+    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
     isRunning = true;
 }
 
@@ -57,7 +66,6 @@ void Game::ProcessInput(){
             }
             break;
     }
-
 }
 
 void Game::Update(){}

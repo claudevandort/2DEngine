@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/libs/**",
+                "/opt/homebrew/include/",
+                "/opt/homebrew/opt/lua/include/lua"
+            ],
+            "defines": [],
+            "macFrameworkPath": [
+                "/System/Library/Frameworks/"
+            ],
+            "compilerPath": "/usr/bin/clang++",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "${default}"
+        }
+    ],
+    "version": 4
+}

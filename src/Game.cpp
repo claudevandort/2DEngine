@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <glm/glm.hpp>
 #include <iostream>
 
 Game::Game(){
@@ -46,7 +47,12 @@ void Game::Initialize(){
     isRunning = true;
 }
 
-void Game::Setup(){}
+glm::vec2 playerPosition, playerVelocity;
+
+void Game::Setup(){
+    playerPosition = glm::vec2(10, 20);
+    playerVelocity = glm::vec2(1, 0);
+}
 
 void Game::Run(){
     Setup();
@@ -72,7 +78,9 @@ void Game::ProcessInput(){
     }
 }
 
-void Game::Update(){}
+void Game::Update(){
+    playerPosition += playerVelocity;
+}
 
 void Game::Render(){
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -82,7 +90,12 @@ void Game::Render(){
     SDL_Surface* surface = IMG_Load("assets/images/tank-tiger-right.png");
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
-    SDL_Rect destinationRect = { 10, 10, 32, 32 };
+    SDL_Rect destinationRect = { 
+        static_cast<int>(playerPosition.x), 
+        static_cast<int>(playerPosition.y), 
+        32, 
+        32 
+    };
     SDL_RenderCopy(renderer, texture, NULL, &destinationRect);
     SDL_DestroyTexture(texture);
 
